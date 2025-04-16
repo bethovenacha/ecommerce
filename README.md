@@ -2,7 +2,7 @@
 A demonstration of skills with React.js/Asp.net/Docker/Kubernetes
 
 # acha
-- is a react app that contains the code for an ecommerce app
+- is a react app that contains the code for an ecommerce shop
 - displays the concept of components, state, properties, http, etc..
 
 # server
