@@ -10,7 +10,6 @@ const Cart = ()=>{
 
     const onOrderQuantityChange = (event, id, _unitPrice) => {
         const quantity = parseInt(event.target.value, 10);
-        const unitPrice = parseInt(_unitPrice,10);
         dispatch(cartActions.updateItem({ id, quantity }));
     };
 
