@@ -8,7 +8,7 @@ const Cart = ()=>{
     
     const dispatch = useDispatch();
 
-    const onOrderQuantityChange = (event, id, _unitPrice) => {
+    const onOrderQuantityChange = (event, id) => {
         const quantity = parseInt(event.target.value, 10);
         dispatch(cartActions.updateItem({ id, quantity }));
     };
@@ -44,7 +44,7 @@ const Cart = ()=>{
                                         min={1}
                                         max={product.stockCount}
                                         value={product.quantity}
-                                        onChange={(e) => onOrderQuantityChange(e, product.id,product.unitPrice)}
+                                        onChange={(e) => onOrderQuantityChange(e, product.id)}
                                         />
                                     </td>
                                     <td>{product.unitPrice}</td>
