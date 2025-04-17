@@ -7,14 +7,15 @@ import PageNotFound from './components/NotFound/ProductNotFound.jsx'
 import Product from './components/Product/Product.jsx';
 import Cart from './components/Cart/Cart.jsx';
 import { Provider } from 'react-redux';
-import store from './redux/store/index.js';
+import {store, persistor} from './redux/store/index.js';
 import NavBar from './components/Navbar/Navbar.jsx';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const router = createBrowserRouter([
   {path:"/",element:<App/>},
   {path:"/Shop",element:<Shop/>},
   {path:"/Product/:id",element:<Product/>},
-  {path:"/Cart/:id",element:<Cart/>},
+  {path:"/Cart",element:<Cart/>},
   {path:"*",element:<PageNotFound/>},
   
 ]);
@@ -22,8 +23,10 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <NavBar/>
-      <RouterProvider router={router}/>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavBar/>
+        <RouterProvider router={router}/>
+      </PersistGate>
     </Provider>
   </StrictMode>,
 )

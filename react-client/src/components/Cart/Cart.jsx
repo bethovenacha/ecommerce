@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { cartActions } from "../../redux/store/cart";
+import { useDispatch } from "react-redux";
 
 const Cart = ()=>{
-    const [orderQuantity,setOrderQuantity] = useState(1);
-    const params = useParams();
-    const state = useSelector(state => state.productReducer.products);
+    const cartState = useSelector(state => state.cartReducer.cart);
+    
+    const dispatch = useDispatch();
 
-    const product = state.filter(prod => prod.id == params.id);
-
-    const onOrderQuantityChange = (event)=>{
-        setOrderQuantity(event.target.value);
+    const onOrderQuantityChange = (event, id, _unitPrice) => {
+        const quantity = parseInt(event.target.value, 10);
+        const unitPrice = parseInt(_unitPrice,10);
+        dispatch(cartActions.updateItem({ id, quantity }));
     };
+
+     // Calculate the total amount
+    const totalAmount = cartState.reduce((sum, product) => {
+        return sum + (product.unitPrice * product.quantity);
+    }, 0);
+
     return(
         <>
             <button>Back</button>
@@ -21,15 +28,31 @@ const Cart = ()=>{
                 <th>Quantity</th>
                 <th>Unit Price</th>
                 <th>Sub Total</th>
-                <tr key={params.id} id={params.id}>
-                    <td>{product[0].name}</td>
-                    <td>
-                        <input type="number" min={1} max={product[0].stockCount} value={orderQuantity} onChange={onOrderQuantityChange}/>
-                    </td>
-                    <td>{product[0].unitPrice}</td>
-                    <td>{product[0].unitPrice * orderQuantity}</td>
-                </tr>
+                {
+                    cartState && cartState.map((product)=>{
+                        return (
+                                <tr key={product.id} id={product.id}>
+                                    <td>{product.name}</td>
+                                    <td>
+                                    <input
+                                        type="number"
+                                        min={1}
+                                        max={product.stockCount}
+                                        value={product.quantity}
+                                        onChange={(e) => onOrderQuantityChange(e, product.id,product.unitPrice)}
+                                        />
+                                    </td>
+                                    <td>{product.unitPrice}</td>
+                                    <td>{product.unitPrice * product.quantity}</td>
+                                </tr>
+                                )
+                    })
+                }
+                
             </table>
+            <h3 style={{ marginTop: '1rem' }}>
+                Total: {totalAmount.toFixed(2)}
+            </h3>
             <button>Back</button>
             <button>Complete Order</button>
             

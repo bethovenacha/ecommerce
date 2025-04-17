@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const Shop = ()=>{
     const products = useSelector(state => state.productReducer.products);
-    console.log(products);
+    
     return(
         <React.Fragment>
             <Container fluid>

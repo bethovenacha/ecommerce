@@ -1,21 +1,29 @@
-import { configureStore} from '@reduxjs/toolkit'; // Use ES module import
-import {cartReducer} from './cart';
+import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
+
 import {productReducer} from './product';
-// contains the reducer that changes the data state
-const store = configureStore({
-    reducer:{cartReducer, productReducer}
+import {cartReducer} from './cart';
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const rootReducer = combineReducers({
+  productReducer,
+  cartReducer,
 });
 
-export default store;
-/*
-//used by the component to subscribe to the store
-const salableProductSubscriber = ()=>{
-    const state = store.getState();
-    console.log(state);
-};
-//subscribes to the store, so that when the state is changed, the component gets notified
-store.subscribe(salableProductSubscriber);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-//dispatches an action of type showSalableProducts
-store.dispatch({type:"showSalableProducts"});
-*/
+export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false, // redux-persist compatibility
+      }),
+  });
+
+export const persistor = persistStore(store);

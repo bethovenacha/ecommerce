@@ -1,12 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import { Container,Col,Row } from "react-bootstrap";
-import NavBar from "../Navbar/Navbar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
+import { cartActions } from "../../redux/store/cart";
 
 const Product = ()=>{
     const params = useParams();
     const result = useSelector(state => state.productReducer.products);
     const product = result.filter(prod => prod.id == params.id);
+    const dispatch = useDispatch();
 
     return (
         <React.Fragment>
@@ -15,10 +16,12 @@ const Product = ()=>{
                 <Col className='columns'>
                     
                         <h3>{product && product.length>0 && <div>
-                            <Link to={`/Cart/${product[0].id}`}>
-                                 <button>Back to Shop</button>
-                                <button>Add to Cart</button>
-                            </Link>
+                            
+                                <button>Back to Shop</button>
+                                <Link to="/Cart" onClick={() => dispatch(cartActions.create(product[0]))}>
+                                    <button>Add to Cart & View</button>
+                                </Link>
+                           
                             <h1>{product[0].name} - remaining stock : {product[0].stockCount}</h1>
 
                             <p>Product Video</p>
