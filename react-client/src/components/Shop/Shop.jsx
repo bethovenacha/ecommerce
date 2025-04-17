@@ -1,20 +1,13 @@
 import { Container,Col,Row } from "react-bootstrap";
-import NavBar from "../Navbar/Navbar";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Shop = ()=>{
-    const products = useSelector(state => state.reduxProducts);
-    
+    const products = useSelector(state => state.productReducer.products);
+    console.log(products);
     return(
         <React.Fragment>
             <Container fluid>
-                <Row className='rows'>
-                    <Col className='columns'>
-                        <NavBar/>
-                    </Col>
-                </Row>
-         
                 <Row className='rows'>
                     <Col className='columns'>
                         <ul>

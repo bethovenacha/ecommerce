@@ -5,18 +5,12 @@ import { useSelector } from "react-redux";
 
 const Product = ()=>{
     const params = useParams();
-    const result = useSelector(state => state.reduxProducts);
+    const result = useSelector(state => state.productReducer.products);
     const product = result.filter(prod => prod.id == params.id);
 
     return (
         <React.Fragment>
-        <Container fluid>
-            <Row className='rows'>
-                <Col className='columns'>
-                    <NavBar/>
-                </Col>
-            </Row>
-     
+        <Container fluid>     
             <Row className='rows'>
                 <Col className='columns'>
                     

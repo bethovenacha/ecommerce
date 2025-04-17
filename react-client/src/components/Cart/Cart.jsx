@@ -5,10 +5,9 @@ import { useParams } from "react-router-dom";
 const Cart = ()=>{
     const [orderQuantity,setOrderQuantity] = useState(1);
     const params = useParams();
-    const state = useSelector(state => state.reduxProducts);
+    const state = useSelector(state => state.productReducer.products);
 
     const product = state.filter(prod => prod.id == params.id);
-    console.log(product[0]);
 
     const onOrderQuantityChange = (event)=>{
         setOrderQuantity(event.target.value);
@@ -23,12 +22,12 @@ const Cart = ()=>{
                 <th>Unit Price</th>
                 <th>Sub Total</th>
                 <tr key={params.id} id={params.id}>
-                    <td>{}</td>
+                    <td>{product[0].name}</td>
                     <td>
-                        <input type="number" min={1} value={orderQuantity} onChange={onOrderQuantityChange}/>
+                        <input type="number" min={1} max={product[0].stockCount} value={orderQuantity} onChange={onOrderQuantityChange}/>
                     </td>
-                    <td>{}</td>
-                    <td>{}</td>
+                    <td>{product[0].unitPrice}</td>
+                    <td>{product[0].unitPrice * orderQuantity}</td>
                 </tr>
             </table>
             <button>Back</button>
