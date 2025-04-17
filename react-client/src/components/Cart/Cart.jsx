@@ -19,6 +19,12 @@ const Cart = ()=>{
         return sum + (product.unitPrice * product.quantity);
     }, 0);
 
+    const formattedTotal = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        }).format(totalAmount);
+      
+
     return(
         <>
             <button>Back</button>
@@ -51,7 +57,7 @@ const Cart = ()=>{
                 
             </table>
             <h3 style={{ marginTop: '1rem' }}>
-                Total: {totalAmount.toFixed(2)}
+                Total: {formattedTotal}
             </h3>
             <button>Back</button>
             <button>Complete Order</button>
