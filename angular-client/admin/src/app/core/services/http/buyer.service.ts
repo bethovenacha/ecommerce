@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { Observable} from 'rxjs';
 import { Buyer } from '../../../shared/model/buyer';
 import { catchError } from 'rxjs/operators';
 import { GlobalErrorHandler } from '../../errors/error';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  
 })
 export class BuyerService {
   url:string = "http://localhost:3000/api/buyer";

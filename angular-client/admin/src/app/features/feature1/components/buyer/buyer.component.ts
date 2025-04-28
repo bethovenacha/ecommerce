@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BuyerService } from '../../../../core/services/http/buyer.service';
 import { Buyer } from '../../../../shared/model/buyer';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-buyer',
   standalone: true,  // optional depending on your project setup
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './buyer.component.html',
   styleUrl: './buyer.component.sass'
 })
@@ -28,4 +29,9 @@ export class BuyerComponent {
   viewOrders(buyerId: string) {
     this.router.navigate(['/orders', buyerId]);
   }
+
+  trackById(index: number, buyer: Buyer): string {
+    return buyer.id;
+  }
+  
 }

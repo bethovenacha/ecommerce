@@ -15,7 +15,8 @@ export class GlobalErrorHandler {
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Client-side error: ${error.error.message}`;
         } else {
-          errorMessage = `Server-side error: ${error.status} - ${error.message}`;
+          //errorMessage = `Server-side error: ${error.status} - ${error.message}`;
+          errorMessage = "My Error is defined"
         }
         console.error(errorMessage);
         return throwError(() => new Error(errorMessage));

@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Order } from '../../../shared/model/order';
-
 import { GlobalErrorHandler } from '../../errors/error';
 @Injectable({
   providedIn: 'root'
