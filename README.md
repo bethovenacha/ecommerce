@@ -1,4 +1,4 @@
-# skill-demo
+# Description
 - A demonstration of skills with React.js/Angular.js/Fastify.js
 
 # React - client folder
