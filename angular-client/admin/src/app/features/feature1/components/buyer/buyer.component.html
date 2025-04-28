@@ -1,7 +1,6 @@
 <ul>
-    @for(buyer of buyers; track buyer.id){
-        <li>{{buyer.name}}</li>  
-      }
+    <li *ngFor="let buyer of buyers; trackBy: trackById" (click)="viewOrders(buyer.id)">
+      {{ buyer.name }}
+    </li>
+  </ul>
   
-    
-</ul>

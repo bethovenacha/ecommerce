@@ -1,26 +1,31 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { BuyerService } from '../../../../core/services/http/buyer.service';
 import { Buyer } from '../../../../shared/model/buyer';
 
 @Component({
   selector: 'app-buyer',
+  standalone: true,  // optional depending on your project setup
   imports: [],
   templateUrl: './buyer.component.html',
   styleUrl: './buyer.component.sass'
 })
 export class BuyerComponent {
   buyers: Buyer[] = [];
-  constructor(private buyerService:BuyerService){
+
+  constructor(private buyerService: BuyerService, private router: Router) {
     this.buyerService.retrieveBuyersWithOrders().subscribe({
-      next : (data)=>{
-        console.log(data);
-        //this.buyers.push(data);
-        //console.log(this.buyers);
+      next: (data) => {
+        this.buyers = data;
       },
-      error: (error)=>{
-        console.log(error.message);
+      error: (error) => {
+        console.error(error.message);
       }
     });
   }
 
+  // Navigate to orders
+  viewOrders(buyerId: string) {
+    this.router.navigate(['/orders', buyerId]);
+  }
 }
