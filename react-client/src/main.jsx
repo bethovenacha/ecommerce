@@ -10,12 +10,19 @@ import { Provider } from 'react-redux';
 import {store, persistor} from './redux/store/index.js';
 import NavBar from './components/Navbar/Navbar.jsx';
 import { PersistGate } from 'redux-persist/integration/react';
-
+import Login from './components/Login/Login.jsx';
+import Register from './components/Register/Register.jsx';
+import ResetPassword from './components/ResetPassword/ResetPassword.jsx';
+import PayPal from './components/Paypal/PayPal.jsx';
 const router = createBrowserRouter([
   {path:"/",element:<App/>},
+  {path:"/Login",element:<Login/>},
+  {path:"/Register",element:<Register/>},
+  {path:"/ResetPassword",element:<ResetPassword/>},
   {path:"/Shop",element:<Shop/>},
   {path:"/Product/:id",element:<Product/>},
   {path:"/Cart",element:<Cart/>},
+  {path:"/PayPal",element:<PayPal/>},
   {path:"*",element:<PageNotFound/>},
   
 ]);

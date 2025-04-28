@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { cartActions } from "../../redux/store/cart";
 import { useDispatch } from "react-redux";
-
+import { v4 as uuidv4 } from 'uuid';
+import { Link } from "react-router-dom";
 const Cart = ()=>{
     const cartState = useSelector(state => state.cartReducer.cart);
     
@@ -22,12 +22,13 @@ const Cart = ()=>{
         style: 'currency',
         currency: 'USD',
         }).format(totalAmount);
-      
 
+   
     return(
         <>
             <button>Back</button>
-            <button>Complete Order</button>
+            <Link to={`/Paypal`}><button>Complete Order</button></Link>
+            
             <table>
                 <th>Product Name</th>
                 <th>Quantity</th>

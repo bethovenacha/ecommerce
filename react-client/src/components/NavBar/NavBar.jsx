@@ -32,10 +32,9 @@ function NavBar(){
                         <Nav.Link href="/Account">Account</Nav.Link>
                       </Nav>
                       <Nav className="justify-content-end flex-grow-1">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/Shop">Shop</Nav.Link>
-                        <Nav.Link href="/Social">Social</Nav.Link>
-                        <Nav.Link href="/Entertainment">Entertainment</Nav.Link>
+                      
+                        <Nav.Link href="/Register">Register</Nav.Link>
+                        <Nav.Link href="/Login">Login</Nav.Link>
                       </Nav>
                     </Offcanvas.Body>
                   </Navbar.Offcanvas>
