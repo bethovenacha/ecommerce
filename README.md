@@ -9,12 +9,12 @@
 # react - client folder
 - is a react app that contains the code for an ecommerce shop
 - displays the concept of 
-    -components
-    -state 
-    -properties 
-    -http request
-    -redux toolkit
-    -redux persistence
+    #components
+    #state 
+    #properties 
+    #http request
+    #redux toolkit
+    #redux persistence
 
 # fastify - server folder
 - is a server made of fastify
