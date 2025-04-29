@@ -3,13 +3,14 @@ import { provideServerRendering } from '@angular/platform-server';
 import { provideServerRouting } from '@angular/ssr';
 import { appConfig } from './app.config';
 import { serverRoutes } from './app.routes.server';
-import { provideHttpClient, withFetch } from '@angular/common/http'; 
+import { provideHttpClient, withFetch,withInterceptorsFromDi } from '@angular/common/http'; 
 
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
     provideServerRouting(serverRoutes),
-    provideHttpClient(withFetch()) // Enable fetch in SSR as well
+    provideHttpClient(withFetch()), // Enable fetch in SSR as well
+    provideHttpClient(withInterceptorsFromDi())
   ]
 };
 
