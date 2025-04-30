@@ -1,8 +1,9 @@
 // server.js
 import Fastify from 'fastify';
 //plugins
-import cors from '@fastify/cors';
+
 import mysql from './plugins/mysql.js';
+import cors from './plugins/cors.js';
 //routes
 import paypalRoutes from './routes/paypal.routes.js';
 import productRoutes from './routes/product.routes.js';
@@ -14,10 +15,7 @@ const start = async () => {
 
     const fastify = Fastify({ logger: true });  
     // plugins
-    await fastify.register(cors, {
-      origin: 'http://localhost:5173',
-      methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    });
+    await fastify.register(cors);
     await fastify.register(mysql);
 
     // routes
