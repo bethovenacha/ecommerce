@@ -1,6 +1,6 @@
 # Description
 - This project is currently being developed to demonstrate skills with React.js, Angular.js, Fastify.js, Asp.net Core, REST API, docker, kubernetes, RabbitMQ, .
-- Each Folder will be contained using docker and will have their own deployment using kubernetes.
+- Each Application and Service will be contained using docker and will have their own deployment using kubernetes.
 - Load balancer and API Gateway using Nginx will soon be implemented
 - Use of message bus such as RabitMQ will also be used with Asp.net Core Web API.
 
