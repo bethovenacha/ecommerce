@@ -43,8 +43,7 @@ const PayPal = () => {
     
     const onApproveOrder = async (data,actions)=>{
       const order = await actions.order.capture();
-      if(order.status==="APPROVED"){
-        //redirect to account page
+      if(order.status == "COMPLETED"){
         console.log(order);
         onPurge();
       }
