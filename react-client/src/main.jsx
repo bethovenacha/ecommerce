@@ -14,8 +14,10 @@ import Login from './components/Login/Login.jsx';
 import Register from './components/Register/Register.jsx';
 import ResetPassword from './components/ResetPassword/ResetPassword.jsx';
 import PayPal from './components/Paypal/PayPal.jsx';
+import {PayPalScriptProvider} from "@paypal/react-paypal-js";
+
 const router = createBrowserRouter([
-  {path:"/",element:<App/>},
+  {path:"/",element:<Shop/>},
   {path:"/Login",element:<Login/>},
   {path:"/Register",element:<Register/>},
   {path:"/ResetPassword",element:<ResetPassword/>},
@@ -29,11 +31,13 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <NavBar/>
-        <RouterProvider router={router}/>
-      </PersistGate>
-    </Provider>
+    <PayPalScriptProvider options={{"client-id":import.meta.env.VITE_CLIENT_ID}}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavBar/>
+          <RouterProvider router={router}/>
+        </PersistGate>
+      </Provider>
+    </PayPalScriptProvider>
   </StrictMode>,
 )

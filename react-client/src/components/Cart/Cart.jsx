@@ -3,6 +3,7 @@ import { cartActions } from "../../redux/store/cart";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom";
+import { persistor } from "../../redux/store/index.js";
 const Cart = ()=>{
     const cartState = useSelector(state => state.cartReducer.cart);
     
@@ -23,12 +24,16 @@ const Cart = ()=>{
         currency: 'USD',
         }).format(totalAmount);
 
-   
+    const onPurge = ()=>{
+        persistor.purge().then(() => {
+        console.log('Persisted state purged.');
+        });
+    };
     return(
         <>
             <button>Back</button>
             <Link to={`/Paypal`}><button>Complete Order</button></Link>
-            
+            <button onClick={onPurge}>Clear</button>
             <table>
                 <th>Product Name</th>
                 <th>Quantity</th>

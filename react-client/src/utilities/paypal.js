@@ -20,10 +20,8 @@ const getAccessToken = async (req, reply)=> {
   });
   
   const text = await response.text(); // ← first read as text for debugging
-  console.log('Raw response:', text);
   try {
     const data = JSON.parse(text);
-    console.log('Parsed JSON:', data);
     return data.access_token;
   } catch (err) {
     console.error('Failed to parse JSON:', err);
