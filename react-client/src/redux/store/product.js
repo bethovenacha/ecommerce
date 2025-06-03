@@ -1,25 +1,21 @@
 import { createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-    products:
-    [
-    {id:"5e9b3b6a-183a-4817-8358-be330879fa68",name:"HP Laptop", video:"hpLaptop.mp4", image:"hpLaptop.jfif", unitPrice:200, stockCount:10},
-    {id:"e0140363-c313-43fc-9b79-62f642a30e56",name:"Mac Laptop", video:"macLaptop.mp4", image:"macLaptop.jfif", unitPrice:300, stockCount:20},
-    {id:"e7922260-b1eb-4320-b58f-425aedb51058",name:"Acer Laptop", video:"acerLaptop.mp4", image:"acerLaptop.jfif", unitPrice:400, stockCount:30}
-    ]
+    products:[]
 };
 
 const productSlice = createSlice({
     name:"product",
     initialState: initialState,
     reducers:{
-        create(state, action){
-            if (state.products.some(p => p.id === action.payload.id)) {//NOTE: "payload" is the default property when accessing your data passed from actions
-                return state; // Don't add duplicate
-            }
+        create(state, action) {
+            const newProducts = Array.isArray(action.payload) ? action.payload : [action.payload];
+            const filtered = newProducts.filter(s => 
+                Array.isArray(state.products) && !state.products.some(existing => existing.id === s.id)
+            );
             return {
                 ...state,
-                products: [...state.products, action.payload]
+                products: [...state.products, ...filtered]
             };
         },
         update(state, action){
@@ -47,6 +43,12 @@ const productSlice = createSlice({
         },
         retrieve(state){
             return state;
+        },
+        clear(state) {
+            return {
+                ...state,
+                products: []
+            };
         }
     }
 });

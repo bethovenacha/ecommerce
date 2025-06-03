@@ -1,6 +1,6 @@
 import cors from '@fastify/cors';
 
-export default async function (fastify){
+export default async function RegisterCors(fastify){
     fastify.register(cors, {
         origin: (origin, callback) => {
           const allowedOrigins = [

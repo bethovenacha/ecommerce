@@ -5,6 +5,7 @@ export const getToken = async (req, reply) => {
   try {
     const token = await getAccessToken();
     return reply.send({ access_token: token });
+    console.log("=========TOKEN: =================" + token)
   } catch (err) {
     console.error('getToken error:', err);
     return reply.status(500).send({ error: err.message });

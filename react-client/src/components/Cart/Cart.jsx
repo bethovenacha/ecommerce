@@ -3,7 +3,8 @@ import { cartActions } from "../../redux/store/cart";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom";
-import { persistor } from "../../redux/store/index.js";
+import storage from 'redux-persist/lib/storage';
+
 const Cart = ()=>{
     const cartState = useSelector(state => state.cartReducer.cart);
     
@@ -25,8 +26,9 @@ const Cart = ()=>{
         }).format(totalAmount);
 
     const onPurge = ()=>{
-        persistor.purge().then(() => {
-        console.log('Persisted state purged.');
+        storage.removeItem('persist:cartReducer').then(() => {
+            dispatch(cartActions.clear()); // Clear in-memory cart state
+            console.log('Cart state purged.');
         });
     };
     return(

@@ -1,9 +1,16 @@
 // controllers/product.controller.js
-import { getTopProducts, getProductById } from '../services/product.service.js';
+import { getProductsByShopId, getProductById } from '../services/product.service.js';
 
-export const handleGetTopProducts = async (req, reply) => {
+export const handleGetProductsByShopId = async (req, reply) => {
   try {
-    const result = await getTopProducts(req.server.mysql);
+    const shopId = req.query.shopId;
+    console.log('Shop ID:', shopId);
+    if(!shopId){
+       return reply.code(400).send({ error: 'Missing shopId' });
+    }
+    const pool = req.server.mssql;
+
+    const result = await getProductsByShopId(pool, String(shopId));
     reply.send(result);
   } catch (error) {
     reply.code(500).send({ error: error.message });

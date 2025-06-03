@@ -3,6 +3,6 @@ import { handleCreateOrder, handleCaptureOrder,getToken } from "../controller/pa
 
 export default async function paypalRoutes(fastify) {
   fastify.post('/getAccessToken',getToken);
-  //fastify.post('/api/orders', handleCreateOrder);
-  //fastify.post('/api/orders/:orderID/capture', handleCaptureOrder);
+  fastify.post('/api/createOrder', handleCreateOrder);
+  fastify.post('/api/completeOrder', handleCaptureOrder);
 }

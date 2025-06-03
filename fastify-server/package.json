@@ -17,6 +17,7 @@
     "body-parser": "^2.2.0",
     "dotenv": "^16.5.0",
     "fastify": "^5.2.2",
+    "mssql": "^11.0.1",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {

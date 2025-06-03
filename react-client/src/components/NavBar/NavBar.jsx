@@ -2,9 +2,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useState } from 'react';
-import { Container, Col,Row } from "react-bootstrap"
+import { Container, Col,Row } from "react-bootstrap";
+import {useSelector } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
+
 function NavBar(){
     const [isExpanded, setExpanded] = useState(true);
+    const shop = useSelector(state => state.shopReducer.shop?.[0]);
 
     return(
         <>
@@ -27,7 +31,7 @@ function NavBar(){
                     <Offcanvas.Body>
                       <Nav className="justify-content-start flex-grow-1">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/Shop">Shop</Nav.Link>
+                        <Nav.Link as={Link} to={shop?.id ? `/Shop/${shop.id}` : "/Shop"}>Shop</Nav.Link>
                         <Nav.Link href="/Cart">Cart</Nav.Link>
                         <Nav.Link href="/Account">Account</Nav.Link>
                       </Nav>
