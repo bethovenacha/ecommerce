@@ -14,6 +14,7 @@ import Register from './components/Register/Register.jsx';
 import ResetPassword from './components/ResetPassword/ResetPassword.jsx';
 import PayPal from './components/Paypal/PayPal.jsx';
 import Home from './components/home/home.jsx';
+import PaypalErrorBoundary from './components/NotFound/PaypalErrorBoundary.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,10 +26,9 @@ const router = createBrowserRouter([
       { path: 'Register', element: <Register /> },
       { path: 'ResetPassword', element: <ResetPassword /> },
       { path: 'Shop/:id', element: <Shop /> },
-      { path: 'Shop', element: <Shop /> },
       { path: 'Product/:id', element: <Product /> },
       { path: 'Cart', element: <Cart /> },
-      { path: 'PayPal', element: <PayPal /> },
+      { path: 'PayPal', element: <PayPal />, errorElement:<PaypalErrorBoundary/>},
       { path: '*', element: <PageNotFound /> },
     ],
   },

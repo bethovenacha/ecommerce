@@ -6,8 +6,11 @@ import { Link } from "react-router-dom";
 import storage from 'redux-persist/lib/storage';
 
 const Cart = ()=>{
-    const cartState = useSelector(state => state.cartReducer.cart);
-    
+    const shop = useSelector(state => state.shopReducer.shop);
+    const result = useSelector(state => state.cartReducer.cart);
+    let uuid = localStorage.getItem('shop_uuid');
+    const cart = result.filter(c=>c.shopId == shop[0].id && c.sessionId == uuid);    
+
     const dispatch = useDispatch();
 
     const onOrderQuantityChange = (event, id) => {
@@ -16,7 +19,7 @@ const Cart = ()=>{
     };
 
      // Calculate the total amount
-    const totalAmount = cartState.reduce((sum, product) => {
+    const totalAmount = cart.reduce((sum, product) => {
         return sum + (product.unitPrice * product.quantity);
     }, 0);
 
@@ -26,7 +29,8 @@ const Cart = ()=>{
         }).format(totalAmount);
 
     const onPurge = ()=>{
-        storage.removeItem('persist:cartReducer').then(() => {
+        let uuid = localStorage.getItem('shop_uuid');
+        storage.removeItem(`persist:cartReducer_${uuid}`).then(() => {
             dispatch(cartActions.clear()); // Clear in-memory cart state
             console.log('Cart state purged.');
         });
@@ -42,7 +46,7 @@ const Cart = ()=>{
                 <th>Unit Price</th>
                 <th>Sub Total</th>
                 {
-                    cartState && cartState.map((product)=>{
+                    cart && cart.map((product)=>{
                         return (
                                 <tr key={product.id} id={product.id}>
                                     <td>{product.name}</td>

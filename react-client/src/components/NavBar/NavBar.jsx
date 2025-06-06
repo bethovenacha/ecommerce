@@ -8,8 +8,9 @@ import { Link, NavLink } from 'react-router-dom';
 
 function NavBar(){
     const [isExpanded, setExpanded] = useState(true);
+    const shopId = import.meta.env.VITE_MAINSHOP_ID;
     const shop = useSelector(state => state.shopReducer.shop?.[0]);
-
+    
     return(
         <>
           <Container fluid>
@@ -31,7 +32,7 @@ function NavBar(){
                     <Offcanvas.Body>
                       <Nav className="justify-content-start flex-grow-1">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to={shop?.id ? `/Shop/${shop.id}` : "/Shop"}>Shop</Nav.Link>
+                        <Nav.Link as={Link} to={`/Shop/${(shop)? shop.id: shopId}`}>Shop</Nav.Link>
                         <Nav.Link href="/Cart">Cart</Nav.Link>
                         <Nav.Link href="/Account">Account</Nav.Link>
                       </Nav>
