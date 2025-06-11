@@ -1,10 +1,9 @@
 // controllers/product.controller.js
-import { getProductsByShopId, getProductById } from '../services/product.service.js';
+import { getProductsByShopId, getProductByProductId } from '../services/product.service.js';
 
 export const handleGetProductsByShopId = async (req, reply) => {
   try {
     const shopId = req.query.shopId;
-    console.log('Shop ID:', shopId);
     if(!shopId){
        return reply.code(400).send({ error: 'Missing shopId' });
     }
@@ -13,16 +12,23 @@ export const handleGetProductsByShopId = async (req, reply) => {
     const result = await getProductsByShopId(pool, String(shopId));
     reply.send(result);
   } catch (error) {
+    console.error('handleGetProductsByShopId failed:', error);
     reply.code(500).send({ error: error.message });
   }
 };
 
-export const handleGetProductById = async (req, reply) => {
+export const GetProductByProductId = async (req, reply) => {
   try {
-    const { id } = req.params;
-    const result = await getProductById(req.server.mysql, id);
+    let productId = req.query.productId;
+    if(!productId){
+       return reply.code(400).send({ error: 'Missing productId' });
+    }
+    const pool = req.server.mssql;
+
+    const result = await getProductByProductId(pool, String(productId));
     reply.send(result);
   } catch (error) {
+    console.error('GetProductByProductId  failed:', error);
     reply.code(500).send({ error: error.message });
   }
 };

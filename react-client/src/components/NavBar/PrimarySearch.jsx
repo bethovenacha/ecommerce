@@ -1,37 +1,35 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {useSelector } from 'react-redux';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import StoreIcon from '@mui/icons-material/Store';
-import AddHomeWorkOutlinedIcon from '@mui/icons-material/AddHomeWorkOutlined';
-
-const preventDefault = (event) => event.preventDefault();
+import { getOrSetUUID } from '../../utilities/session';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function PrimarySearchAppBar() {
+  const [product, setProduct] = useState();
+  const param = useParams();
 
-  const shopId = import.meta.env.VITE_MAINSHOP_ID;
   const shop = useSelector(state => state.shopReducer.shop?.[0]);
   const cart = useSelector(state => state.cartReducer.cart);
-  const product = useSelector(state => state.productReducer.products);
+  const productState = useSelector(state => state.productReducer.products);
+  const shopId = (param) ? param.shopId : import.meta.env.VITE_MAINSHOP_ID;
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -141,19 +139,16 @@ export default function PrimarySearchAppBar() {
           </Typography>          
           <Box >
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Link href={`/`}>
-                <Typography color='white'>Home</Typography>                
+              <Link to={`/`}>
+                <Typography color="white">Home</Typography>
               </Link>
-              <AddHomeWorkOutlinedIcon/>
             </IconButton>
 
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Link href={`/Shop/${(shop)? shop.id: shopId}`}>
-                <Typography color='white'>Shop</Typography>
+              <Link to={`/Shop/${shop ? shop.id : shopId}`}>
+                <Typography color="white">Shop</Typography>
               </Link>
-              <Badge badgeContent={(product)? product.length:0} color="error">
-                <StoreIcon/>
-              </Badge>     
+              <StoreIcon/>
             </IconButton>
             
             <IconButton
@@ -161,8 +156,8 @@ export default function PrimarySearchAppBar() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Link href={`/Cart`}>
-                <Typography color='white'>Cart</Typography>
+              <Link to={`/Cart`}>
+                <Typography color="white">Cart</Typography>
               </Link>
               <Badge badgeContent={(cart) ? cart.length : 0} color="error">
                 <AddShoppingCartIcon />
