@@ -16,6 +16,7 @@ import PayPal from './components/Paypal/PayPal.jsx';
 import Home from './components/home/home.jsx';
 import PaypalErrorBoundary from './components/NotFound/PaypalErrorBoundary.jsx';
 import {getOrSetUUID} from './utilities/session.js';
+import Sample from './components/Sample.jsx';
 
 getOrSetUUID();
 
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: 'Shop/:shopId', element: <Shop /> },
       { path: 'Product/:productId', element: <Product /> },
       { path: 'Cart', element: <Cart /> },
+      { path: 'Sample', element: <Sample /> },
       { path: 'PayPal', element: <PayPal />, errorElement:<PaypalErrorBoundary/>},
       { path: '*', element: <PageNotFound /> },
     ],

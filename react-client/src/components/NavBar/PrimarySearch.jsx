@@ -150,6 +150,13 @@ export default function PrimarySearchAppBar() {
               </Link>
               <StoreIcon/>
             </IconButton>
+
+             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Link to={`/Sample`}>
+                <Typography color="white">Sample</Typography>
+              </Link>
+              <StoreIcon/>
+            </IconButton>
             
             <IconButton
               size="large"

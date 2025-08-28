@@ -42,9 +42,12 @@ const PayPal = () => {
         return await actions.order.create({
           purchase_units:[{
             amount: {
-            currency_code: currency.trim(), // <--- REQUIRED
-            value: (amount || 0).toFixed(2)     // <--- REQUIRED
-            }
+                currency_code: currency.trim(), // <--- REQUIRED
+                value: (amount || 0).toFixed(2)     // <--- REQUIRED
+            },
+            payee: {
+                email_address: "payee@exmple.com",
+              }
           }]
         })
     };
