@@ -1,4 +1,4 @@
 <div *ngFor="let order of orders$ | async; trackBy: trackById">
-  {{ order.id }}
+  {{ order.id}} and status is {{ order.status }}
 </div>
 

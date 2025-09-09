@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { Order } from "../shared/model/order";
 
-export const orderActions = createAction(
-    '[Order] Load Orders', props<{ orders: Order[] }>()
+export const orderCreate = createAction(
+    '[Order] Create Orders', props<{ orders: Order[] }>()
 );

@@ -6,8 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { orderActions } from '../../../../store/order.actions';
+import { orderCreate } from '../../../../store/order.actions';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { selectAllOrders } from '../../../../store/order.selector';
 
 @Component({
   selector: 'app-order',
@@ -32,9 +33,10 @@ export class OrderComponent {
 
   constructor(){
     this.orders.push({id:"1",productId:"2",quantity:1,status:"old"});
-    this.store.dispatch(orderActions({orders: this.orders}));
+    this.store.dispatch(orderCreate({orders: this.orders}));
 
-    this.orders$ = toObservable(this.store.selectSignal(state=>state.orderReducer)) ;
+    //this.orders$ = toObservable(this.store.selectSignal(state=>state.orderReducer)) ;
+    this.orders$ = toObservable(this.store.selectSignal(selectAllOrders)) ;
     // Read the buyerId from the route parameters
    // this.buyerId = this.route.snapshot.paramMap.get('buyerId') || '';
     //if (this.buyerId) {
