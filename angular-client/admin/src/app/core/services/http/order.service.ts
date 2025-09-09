@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Order } from '../../../shared/model/order';
 import { GlobalErrorHandler } from '../../errors/error';
+
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
    url = "http://localhost:3000/api/orders";
-  constructor(private client: HttpClient, private errorHandler:GlobalErrorHandler) { }
-
+   client: HttpClient = inject(HttpClient);
+   errorHandler: GlobalErrorHandler = inject(GlobalErrorHandler);
+  
   // Retrieve orders by buyerID
   retrieveOrdersByBuyerId(buyerId: string): Observable<Order[]> {
     const retrievalUrl = `${this.url}?buyerId=${buyerId}`;

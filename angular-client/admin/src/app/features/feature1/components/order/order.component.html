@@ -1,1 +1,4 @@
-<p>order works!</p>
+<div *ngFor="let order of orders$ | async; trackBy: trackById">
+  {{ order.id }}
+</div>
+

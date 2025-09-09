@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BuyerService } from '../../../../core/services/http/buyer.service';
 import { Buyer } from '../../../../shared/model/buyer';
@@ -13,8 +13,10 @@ import { CommonModule } from '@angular/common';
 })
 export class BuyerComponent {
   buyers: Buyer[] = [];
-
-  constructor(private buyerService: BuyerService, private router: Router) {
+  buyerService: BuyerService = inject(BuyerService);
+  router: Router = inject(Router);
+  
+  constructor() {
     this.buyerService.retrieveBuyersWithOrders().subscribe({
       next: (data) => {
         this.buyers = data;

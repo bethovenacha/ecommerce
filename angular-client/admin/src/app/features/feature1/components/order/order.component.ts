@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { OrderService } from '../../../../core/services/http/order.service';
 import { Order } from '../../../../shared/model/order';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { orderActions } from '../../../../store/order.actions';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-order',
-  imports: [FormsModule],
+  imports: [FormsModule, AsyncPipe, CommonModule],
   templateUrl: './order.component.html',
-  styleUrl: './order.component.sass'
+  styleUrl: './order.component.sass',
+  
 })
 export class OrderComponent {
 
@@ -16,15 +22,24 @@ export class OrderComponent {
   orderToUpdate: Order | null = null;
   errorMessage: string = '';
   isLoading: boolean = false;
-  
   buyerId: string = ''; // <-- new property to hold the buyer ID
+  //service injection
+  orderService: OrderService = inject(OrderService);
+  route: ActivatedRoute = inject(ActivatedRoute);
+  // store has a key orderReducer which is an array of Order
+  store:Store<{orderReducer:Order[]}> = inject(Store);
+  orders$!: Observable<Order[]>;
 
-  constructor(private orderService:OrderService, private route:ActivatedRoute){
+  constructor(){
+    this.orders.push({id:"1",productId:"2",quantity:1,status:"old"});
+    this.store.dispatch(orderActions({orders: this.orders}));
+
+    this.orders$ = toObservable(this.store.selectSignal(state=>state.orderReducer)) ;
     // Read the buyerId from the route parameters
-    this.buyerId = this.route.snapshot.paramMap.get('buyerId') || '';
-    if (this.buyerId) {
-      this.loadOrders();
-    }
+   // this.buyerId = this.route.snapshot.paramMap.get('buyerId') || '';
+    //if (this.buyerId) {
+    //  this.loadOrders();
+    //}
   }
   //Loads the orders data from the database
   loadOrders() {

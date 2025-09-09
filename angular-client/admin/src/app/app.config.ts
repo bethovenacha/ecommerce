@@ -4,14 +4,17 @@ import { provideHttpClient, withFetch,withInterceptorsFromDi } from '@angular/co
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideStore } from '@ngrx/store';
+import { orderReducer } from './store/order.reducer';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes), 
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch()),  // Add this line to enable fetch API
-    provideHttpClient(withInterceptorsFromDi())
-  ]
+    provideHttpClient(withFetch()), // Add this line to enable fetch API
+    provideHttpClient(withInterceptorsFromDi()),
+    provideStore({orderReducer: orderReducer}) // Register the orderReducer with the store
+]
 };
