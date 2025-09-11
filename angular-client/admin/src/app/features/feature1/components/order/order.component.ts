@@ -6,10 +6,10 @@ import { FormsModule } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { toObservable } from "@angular/core/rxjs-interop";
-import { orderCreate } from "../../../../store/order.actions";
+import { orderCreate } from "../../../../store/order/order.actions";
 import { AsyncPipe, CommonModule } from "@angular/common";
-import { allOrdersSelector } from "../../../../store/order.selector";
-import { OrderState } from "../../../../store/order.state";
+import { allOrdersSelector } from "../../../../store/order/order.selector";
+import { OrderState } from "../../../../store/order/order.state";
 
 @Component({
   selector: "app-order",

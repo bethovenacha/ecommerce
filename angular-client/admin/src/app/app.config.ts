@@ -5,7 +5,8 @@ import { routes } from "./app.routes";
 import { provideClientHydration, withEventReplay } from "@angular/platform-browser";
 import { provideStore } from "@ngrx/store";
 import { provideEffects } from "@ngrx/effects";
-import { orderReducer } from "./store/order.reducer";
+import { orderReducer } from "./store/order/order.reducer";
+import { OrderEffect } from "./store/order/order.effect";
 
 export const 
 appConfig: ApplicationConfig = {
@@ -15,6 +16,6 @@ appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideStore({ orderState: orderReducer }), // 👈 key = "orderState"
-    provideEffects()
+    provideEffects([OrderEffect])
   ]
 };
