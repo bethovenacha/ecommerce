@@ -1,9 +1,15 @@
 import { createReducer, on } from "@ngrx/store";
-import { Order } from "../shared/model/order";
 import { orderCreate } from "./order.actions";
+import { OrderState } from "./order.state";
 
-const initialState:Order[] = [];
+const initialState: OrderState = {
+  orders: []
+};
+
 export const orderReducer = createReducer(
-    initialState,
-    on(orderCreate, (state, { orders }) => [...orders]) // Use the payload // Example action handler
+  initialState,
+  on(orderCreate, (state, { value }) => ({
+    ...state,
+    orders: [...state.orders, value]
+  }))
 );

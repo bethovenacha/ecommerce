@@ -1,10 +1,10 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Order } from '../shared/model/order';
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { OrderState } from "./order.state";
 
-export const selectOrderState = createFeatureSelector<Order[]>('orderReducer');
+// 👇 Key must match app.config.ts
+export const selectOrderState = createFeatureSelector<OrderState>("orderState");
 
-export const selectAllOrders = createSelector(
+export const allOrdersSelector = createSelector(
   selectOrderState,
-  (orders: Order[]) => orders
+  (state: OrderState) => state.orders
 );
-

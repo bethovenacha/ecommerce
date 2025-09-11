@@ -1,20 +1,20 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core'; 
-import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch,withInterceptorsFromDi } from '@angular/common/http';  // Import the necessary HTTP providers
+import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
+import { provideRouter } from "@angular/router";
+import { provideHttpClient, withFetch, withInterceptorsFromDi } from "@angular/common/http";
+import { routes } from "./app.routes";
+import { provideClientHydration, withEventReplay } from "@angular/platform-browser";
+import { provideStore } from "@ngrx/store";
+import { provideEffects } from "@ngrx/effects";
+import { orderReducer } from "./store/order.reducer";
 
-import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideStore } from '@ngrx/store';
-import { orderReducer } from './store/order.reducer';
-
-
-export const appConfig: ApplicationConfig = {
+export const 
+appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch()), // Add this line to enable fetch API
-    provideHttpClient(withInterceptorsFromDi()),
-    provideStore({orderReducer: orderReducer}) // Register the orderReducer with the store
-]
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    provideStore({ orderState: orderReducer }), // 👈 key = "orderState"
+    provideEffects()
+  ]
 };
