@@ -17,6 +17,7 @@ export class BuyerComponent {
   router: Router = inject(Router);
   
   constructor() {
+    /*
     this.buyerService.retrieveBuyersWithOrders().subscribe({
       next: (data) => {
         this.buyers = data;
@@ -25,6 +26,7 @@ export class BuyerComponent {
         console.error(error.message);
       }
     });
+    */
   }
 
   // Navigate to orders

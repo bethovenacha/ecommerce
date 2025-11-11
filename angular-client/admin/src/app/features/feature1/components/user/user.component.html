@@ -1,0 +1,13 @@
+@if(isLoggedIn){
+    <div>
+        <h1>User Logged In</h1>
+        <p>Welcome, {{ user?.name }}!</p>
+    </div>
+}@else{
+    <div>
+        <h1>User not Logged In</h1>
+        <p>Please login first</p>
+    </div>
+}
+
+
